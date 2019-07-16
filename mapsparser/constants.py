@@ -20,3 +20,4 @@ class Const:
     TRIP_DURATION_SECTION_ID = ".section-directions-trip-duration"
     SPACE_SYMBOL = " "
     WEBDRIVER_TIMEOUT = 10
+    DEFAULT_TRIP_TIME = 500

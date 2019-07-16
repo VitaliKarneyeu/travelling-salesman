@@ -72,7 +72,7 @@ class MapsPage(Page):
 
     def get_shortest_trip_time(self) -> int:
         # reading data to list again and again, while all data not will
-        # be read successfully
+        # be read successfully, because DOM can changed suddenly
         durations_list = []
         success = False
         while not success:
