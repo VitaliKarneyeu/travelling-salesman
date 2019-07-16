@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.common.exceptions import StaleElementReferenceException
 
 from .constants import Const
 from .fields import Field, Fields, Button
@@ -30,12 +31,12 @@ class MapsPage(Page):
                                          id_type=By.CSS_SELECTOR)
     _time_input_picker = Field(field_id=Const.TIME_INPUT_ID,
                                id_type=By.CSS_SELECTOR)
-    _default_time_div = Field(field_id=Const.DEFAULT_TIME_DIV_ID,
-                              id_type=By.CSS_SELECTOR)
     _select_schedule_button = Field(field_id=Const.SELECT_SCHEDULE_BUTTON_ID,
                                     id_type=By.CSS_SELECTOR)
     _depart_menu_item = Field(field_id=Const.DEPART_MENU_ITEM_ID,
                               id_type=By.CSS_SELECTOR)
+    _trip_duration_all_sections = Fields(field_id=Const.TRIP_DURATION_SECTION_ID,
+                                         id_type=By.CSS_SELECTOR)
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -58,15 +59,34 @@ class MapsPage(Page):
     def click_travel_mode_transit_button(self):
         self._travel_mode_transit_button.click()
 
-    def click_time_picker_field(self):
+    def set_default_time_to_field(self):
         self._time_input_picker.click()
-        # self._time_input_picker = "10:30 AM\n"
-
-    def click_default_time_div(self):
-        self._default_time_div.click()
+        self._time_input_picker = Const.NEW_LINE_SYMBOL
+        self._time_input_picker = Const.DEFAULT_TIME_STRING_TO_SET
 
     def click_select_schedule_button(self):
         self._select_schedule_button.click()
 
     def click_depart_menu_item(self):
         self._depart_menu_item.click()
+
+    def get_shortest_trip_time(self) -> int:
+        # reading data to list again and again, while all data not will
+        # be read successfully
+        durations_list = []
+        success = False
+        while not success:
+            try:
+                self._trip_duration_all_sections = Fields(
+                    field_id=Const.TRIP_DURATION_SECTION_ID,
+                    id_type=By.CSS_SELECTOR
+                )
+                durations_list = [trip.text for trip in self._trip_duration_all_sections]
+                success = True
+            except StaleElementReferenceException:
+                pass
+
+        # extract times from string list,
+        trip_times = [int(time.split(Const.SPACE_SYMBOL)[0]) for time in durations_list]
+        shortest_trip_time = min(trip_times)
+        return shortest_trip_time

@@ -16,7 +16,7 @@ class GoogleMapsParser(MapsParser):
         self._maps_page = MapsPage(self._driver)
 
     def find_travel_time(self, starting_address: str,
-                         destination_address: str) -> None:
+                         destination_address: str) -> int:
         # maximize directions panel
         self._maps_page.click_search_box_directions_button()
 
@@ -33,8 +33,9 @@ class GoogleMapsParser(MapsParser):
         self._maps_page.click_depart_menu_item()
 
         # select default time
-        self._maps_page.click_time_picker_field()
-        self._maps_page.click_default_time_div()
+        self._maps_page.set_default_time_to_field()
+
+        return self._maps_page.get_shortest_trip_time()
 
     def quit(self) -> None:
         self._driver.close()

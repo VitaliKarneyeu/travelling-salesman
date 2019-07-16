@@ -1,3 +1,6 @@
+from selenium.webdriver.common.keys import Keys
+
+
 class Const:
     FIREFOX_DEFAULT_WINDOW_SIZE = "--window-size=1024,768"
     EXECUTABLE_PATH = r'./mapsparser/drivers/geckodriver'
@@ -9,5 +12,11 @@ class Const:
     TRAVEL_MODE_TRANSIT_BUTTON_ID = '[aria-label="Transit"]'
     SELECT_SCHEDULE_BUTTON_ID = "#\:4"
     DEPART_MENU_ITEM_ID = "#\:1 div"
-    TIME_INPUT_ID = ".time-input"
-    DEFAULT_TIME_DIV_ID = "#\:y .goog-menuitem-content"
+    TIME_INPUT_ID = '[name = "transit-time"]'
+    DEFAULT_TIME_STRING_TO_SET = (f"{Keys.BACKSPACE}{Keys.BACKSPACE}"
+            f"{Keys.BACKSPACE}{Keys.BACKSPACE}{Keys.BACKSPACE}{Keys.BACKSPACE}"
+            f"{Keys.BACKSPACE}{Keys.BACKSPACE}10:30 AM\n")
+    NEW_LINE_SYMBOL = "\n"
+    TRIP_DURATION_SECTION_ID = ".section-directions-trip-duration"
+    SPACE_SYMBOL = " "
+    WEBDRIVER_TIMEOUT = 10
