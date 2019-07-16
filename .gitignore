@@ -2,3 +2,4 @@
 /geckodriver.log
 /venv/*
 /mapsparser/__pycache__/*
+/mapsparser/drivers/geckodriver
