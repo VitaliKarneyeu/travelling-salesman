@@ -1,1 +1,4 @@
 /.idea/*
+/geckodriver.log
+/venv/*
+/mapsparser/__pycache__/*
