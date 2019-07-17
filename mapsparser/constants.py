@@ -2,32 +2,36 @@ from selenium.webdriver.common.keys import Keys
 
 
 class Const:
-    FIREFOX_DEFAULT_WINDOW_SIZE = "--window-size=1024,768"
-    EXECUTABLE_PATH = r'./mapsparser/drivers/geckodriver'
-    GOOGLE_MAPS_URL = "https://www.google.com/maps/"
-    GOOGLE_MAPS_PAGE_TITLE = "Google Maps"
-    SEARCHBOX_DIRECTIONS_BUTTON_ID = ".searchbox-directions"
-    STARTING_ADDRESS_FIELD_ID = "#sb_ifc51 input"
-    DESTINATION_ADDRESS_FIELD_ID = "#sb_ifc52 input"
-    TRAVEL_MODE_TRANSIT_BUTTON_ID = '[aria-label="Transit"]'
-    SELECT_SCHEDULE_BUTTON_ID = "#\:4"
-    DEPART_MENU_ITEM_ID = "#\:1 div"
-    TIME_INPUT_ID = '[name = "transit-time"]'
+    DELAY_BETWEEN_PARSING_QUERIES = 2
     DEFAULT_TIME_STRING_TO_SET = (f"{Keys.BACKSPACE}{Keys.BACKSPACE}"
             f"{Keys.BACKSPACE}{Keys.BACKSPACE}{Keys.BACKSPACE}{Keys.BACKSPACE}"
             f"{Keys.BACKSPACE}{Keys.BACKSPACE}10:30 AM\n")
+    DEFAULT_TRIP_TIME = 2500
+    DEPART_MENU_ITEM_ID = "#\:1 div"
+    DESTINATION_ADDRESS_FIELD_ID = "#sb_ifc52 input"
+    EXECUTABLE_PATH = r'./mapsparser/drivers/geckodriver'
+    FIREFOX_DEFAULT_WINDOW_SIZE = "--window-size=1024,768"
+    GOOGLE_MAPS_URL = "https://www.google.com/maps/"
+    GOOGLE_MAPS_PAGE_TITLE = "Google Maps"
     NEW_LINE_SYMBOL = "\n"
-    TRIP_DURATION_SECTION_ID = ".section-directions-trip-duration"
+    PENALTY_8_AM = 1000     # for shops which not working early morning
+    SEARCHBOX_DIRECTIONS_BUTTON_ID = ".searchbox-directions"
+    SELECT_SCHEDULE_BUTTON_ID = "#\:4"
     SPACE_SYMBOL = " "
-    WEBDRIVER_TIMEOUT = 20
-    DEFAULT_TRIP_TIME = 500
-    PENALTY_8_AM = 100     # for shops not working early morning
     START_COUNT = 1
+    STARTING_ADDRESS_FIELD_ID = "#sb_ifc51 input"
     STARTING_BEST_ROUTE_TIME = 888888888
+    TIME_INPUT_ID = '[name = "transit-time"]'
+    TRAVEL_MODE_TRANSIT_BUTTON_ID = '[aria-label="Transit"]'
+    TRIP_DURATION_SECTION_ID = ".section-directions-trip-duration"
+    WEBDRIVER_TIMEOUT = 20
 
-    RANDOM_SCOPE_COEFFICIENT = 0.0001
-    INITIAL_PHEROMONE_VALUE = 0.5
+    # constants for ant colony algorithm
+    RANDOM_SCOPE_COEFFICIENT = 0.001
+    INITIAL_PHEROMONE_VALUE = 1
     PHEROMONE_DECAY = 0.05
-    GREEDINESS = 0.2
-    HERD_INSTINCT = 0.05
-    DELAY_BETWEEN_PARSING_QUERIES = 2
+    GREEDINESS = 0.05
+    HERD_INSTINCT = 0.5
+    NUMBER_ITERATIONS = 2000
+    FROM_FIRST = 1
+    TO_SECOND = 2
