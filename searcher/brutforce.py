@@ -1,13 +1,13 @@
 from mapsparser.constants import Const
+from .search import Search
 
 
-class BrutForceSearch:
-    def __init__(self, times_table: list, points: list) -> None:
-        self._search_fastest_way(times_table, points)
+class BrutForceSearch(Search):
 
-    def _search_fastest_way(self, times_table: list, points: list):
+    def search_fastest_way(self, times_table: list, points: list) -> None:
         size = len(times_table)
 
+        # todo: find and fix bugs
         best_route_time = Const.STARTING_BEST_ROUTE_TIME
         best_route = []
 
@@ -15,14 +15,16 @@ class BrutForceSearch:
 
         finish = False
         while not finish:
-
+            # print(counters_list)
             points_can_use = list(range(size))
             for num_digit in counters_list:
                 if num_digit not in points_can_use:
+                    # print("not")
                     break
                 else:
                     points_can_use.remove(num_digit)
             else:
+                # print(counters_list)
                 # all digits are different, calculate new route len
                 route_len = times_table[0][counters_list[0]]
                 for i in range(len(counters_list) - 2):
@@ -42,6 +44,7 @@ class BrutForceSearch:
                     for i in range(len(counters_list) - 2):
                         print(times_table[counters_list[i]][counters_list[i + 1]], end=' ')
                     print(times_table[counters_list[i+1]][0])
+
             # try to increment digits in counter_list
             accum = 1
             for i in range(len(counters_list)-1, -1, -1):
@@ -50,6 +53,6 @@ class BrutForceSearch:
                     accum = 0
                     break
                 else:
-                    counters_list[i] = 0
+                    counters_list[i] = Const.START_COUNT
             else:
                 finish = True
