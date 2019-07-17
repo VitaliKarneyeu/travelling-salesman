@@ -21,3 +21,6 @@ class Const:
     SPACE_SYMBOL = " "
     WEBDRIVER_TIMEOUT = 10
     DEFAULT_TRIP_TIME = 500
+    PENALTY_8_AM = 100     # for shops not working early morning
+    START_COUNT = 1
+    STARTING_BEST_ROUTE_TIME = 888888888

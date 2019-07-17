@@ -2,8 +2,10 @@ from mapsparser.constants import Const
 
 
 class BrutForceSearch:
+    def __init__(self, times_table: list, points: list) -> None:
+        self._search_fastest_way(times_table, points)
 
-    def search_fastest_way(self, times_table: list, points: list):
+    def _search_fastest_way(self, times_table: list, points: list):
         size = len(times_table)
 
         best_route_time = Const.STARTING_BEST_ROUTE_TIME
