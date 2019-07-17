@@ -3,3 +3,4 @@
 /venv/*
 /mapsparser/__pycache__/*
 /mapsparser/drivers/geckodriver
+/searcher/__pycache__/*
