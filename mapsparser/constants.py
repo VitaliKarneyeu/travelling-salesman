@@ -13,6 +13,8 @@ class Const:
     FIREFOX_DEFAULT_WINDOW_SIZE = "--window-size=1024,768"
     GOOGLE_MAPS_URL = "https://www.google.com/maps/"
     GOOGLE_MAPS_PAGE_TITLE = "Google Maps"
+    MINUTES_ONLY_PARTS_NUM = 2
+    MINUTES_PER_HOUR = 60
     NEW_LINE_SYMBOL = "\n"
     PENALTY_8_AM = 1000     # for shops which not working early morning
     SEARCHBOX_DIRECTIONS_BUTTON_ID = ".searchbox-directions"
@@ -25,6 +27,7 @@ class Const:
     TRAVEL_MODE_TRANSIT_BUTTON_ID = '[aria-label="Transit"]'
     TRIP_DURATION_SECTION_ID = ".section-directions-trip-duration"
     WEBDRIVER_TIMEOUT = 20
+    WITH_HOURS_PARTS_NUM = 4
 
     # constants for ant colony algorithm
     RANDOM_SCOPE_COEFFICIENT = 0.001

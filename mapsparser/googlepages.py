@@ -87,6 +87,17 @@ class MapsPage(Page):
                 pass
 
         # extract times from string list,
-        trip_times = [int(time.split(Const.SPACE_SYMBOL)[0]) for time in durations_list]
+        trip_times = []
+        for time_string in durations_list:
+            splitted_time_list = time_string.split(Const.SPACE_SYMBOL)
+            if len(splitted_time_list) == Const.MINUTES_ONLY_PARTS_NUM:
+                minutes, _ = splitted_time_list
+                trip_times.append(int(minutes))
+            elif len(splitted_time_list) == Const.WITH_HOURS_PARTS_NUM:
+                hours, _, minutes, _ = splitted_time_list
+                trip_times.append(
+                    int(hours) * Const.MINUTES_PER_HOUR + int(minutes))
+            else:
+                raise ValueError("Wrong trip time answer from google maps!")
         shortest_trip_time = min(trip_times)
         return shortest_trip_time
