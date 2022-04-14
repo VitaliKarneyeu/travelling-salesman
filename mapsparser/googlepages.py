@@ -1,17 +1,18 @@
-from selenium.webdriver.common.by import By
+from typing import Optional, NoReturn
+
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 
 from .constants import Const
-from .fields import Field, Fields, Button
+from .elements import Field, Fields, Button
+from .locators import MapsLocators
 
 
 class Page:
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver) -> None:
         self._driver = driver
-        self._condition = None
 
-    def sanity_check(self):
+    def sanity_check(self) -> Optional[NoReturn]:
         return NotImplemented
 
     @property
@@ -20,54 +21,54 @@ class Page:
 
 
 class MapsPage(Page):
-    _URL = Const.GOOGLE_MAPS_URL
-    _search_box_directions_button = Button(field_id=Const.SEARCHBOX_DIRECTIONS_BUTTON_ID,
-                                           id_type=By.CSS_SELECTOR)  # type:Button
-    _starting_address_field = Field(field_id=Const.STARTING_ADDRESS_FIELD_ID,
-                                    id_type=By.CSS_SELECTOR)
-    _destination_address_field = Field(field_id=Const.DESTINATION_ADDRESS_FIELD_ID,
-                                       id_type=By.CSS_SELECTOR)
-    _travel_mode_transit_button = Button(field_id=Const.TRAVEL_MODE_TRANSIT_BUTTON_ID,
-                                         id_type=By.CSS_SELECTOR)
-    _time_input_picker = Field(field_id=Const.TIME_INPUT_ID,
-                               id_type=By.CSS_SELECTOR)
-    _select_schedule_button = Field(field_id=Const.SELECT_SCHEDULE_BUTTON_ID,
-                                    id_type=By.CSS_SELECTOR)
-    _depart_menu_item = Field(field_id=Const.DEPART_MENU_ITEM_ID,
-                              id_type=By.CSS_SELECTOR)
-    _trip_duration_all_sections = Fields(field_id=Const.TRIP_DURATION_SECTION_ID,
-                                         id_type=By.CSS_SELECTOR)
+    URL = "https://www.google.com/maps/"
+    title = "Google Maps"
+    sanity_element = Button(MapsLocators.SEARCHBOX_DIRECTIONS_BUTTON())
 
-    def __init__(self, driver):
+    _search_box_directions_button = Button(MapsLocators.SEARCHBOX_DIRECTIONS_BUTTON())
+    _starting_address_field = Field(MapsLocators.STARTING_ADDRESS_FIELD())
+    _destination_address_field = Field(MapsLocators.DESTINATION_ADDRESS_FIELD())
+    _travel_mode_transit_button = Button(MapsLocators.TRAVEL_MODE_TRANSIT_BUTTON())
+    _travel_mode_walking_button = Button(MapsLocators.TRAVEL_MODE_WALKING_BUTTON())
+    _could_not_calc_message_field = Field(MapsLocators.COULD_NOT_CALC())
+    _time_input_picker = Field(MapsLocators.TIME_INPUT())
+    _select_schedule_button = Field(MapsLocators.SELECT_SCHEDULE_BUTTON())
+    _depart_menu_item = Field(MapsLocators.DEPART_MENU_ITEM())
+
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-        driver.get(self._URL)
+        driver.get(self.URL)
         self.sanity_check()
 
-    def sanity_check(self):
-        assert Const.GOOGLE_MAPS_PAGE_TITLE in self.driver.title
+    def sanity_check(self) -> Optional[NoReturn]:
+        assert self.title in self.driver.title
+        self.sanity_element.set_driver(self.driver)
         super().sanity_check()
 
-    def click_search_box_directions_button(self):
+    def click_search_box_directions_button(self) -> None:
         self._search_box_directions_button.click()
 
-    def insert_starting_address(self, starting_address: str):
-        self._starting_address_field = starting_address
+    def send_keys_starting_address(self, value: str) -> None:
+        self._starting_address_field.send_keys(value)
 
-    def insert_destination_address(self, destination_address: str):
-        self._destination_address_field = destination_address
+    def send_keys_destination_address(self, value: str) -> None:
+        self._destination_address_field.send_keys(value)
 
-    def click_travel_mode_transit_button(self):
+    def click_travel_mode_transit_button(self) -> None:
         self._travel_mode_transit_button.click()
 
-    def set_default_time_to_field(self):
-        self._time_input_picker.click()
-        self._time_input_picker = Const.NEW_LINE_SYMBOL
-        self._time_input_picker = Const.DEFAULT_TIME_STRING_TO_SET
+    def click_travel_mode_walking_button(self) -> None:
+        self._travel_mode_walking_button.click()
 
-    def click_select_schedule_button(self):
+    def set_default_time_to_field(self) -> None:
+        self._time_input_picker.click()
+        self._time_input_picker.send_keys(Const.NEW_LINE_SYMBOL)
+        self._time_input_picker.send_keys(Const.DEFAULT_TIME_STRING_TO_SET)
+
+    def click_select_schedule_button(self) -> None:
         self._select_schedule_button.click()
 
-    def click_depart_menu_item(self):
+    def click_depart_menu_item(self) -> None:
         self._depart_menu_item.click()
 
     def get_shortest_trip_time(self) -> int:
@@ -77,11 +78,8 @@ class MapsPage(Page):
         success = False
         while not success:
             try:
-                self._trip_duration_all_sections = Fields(
-                    field_id=Const.TRIP_DURATION_SECTION_ID,
-                    id_type=By.CSS_SELECTOR
-                )
-                durations_list = [trip.text for trip in self._trip_duration_all_sections]
+                trip_duration_all_sections = Fields(MapsLocators.TRIP_DURATION_SECTION())
+                durations_list = trip_duration_all_sections.get_text_list()
                 success = True
             except StaleElementReferenceException:
                 pass
@@ -101,3 +99,9 @@ class MapsPage(Page):
                 raise ValueError("Wrong trip time answer from google maps!")
         shortest_trip_time = min(trip_times)
         return shortest_trip_time
+
+    def get_sorry_message(self) -> str:
+        try:
+            return self._could_not_calc_message_field.get_text()
+        except TimeoutException:
+            return ""

@@ -109,12 +109,13 @@ class AntColonySearch(Search):
             self._calc_routes_data()
             time, best_route = self._build_route()
 
-            for shop, flag in self._points:
-                if best_route[Const.TO_SECOND] == shop and not flag:
-                    need_calc = True
-                    index_to = self._points.index((shop, flag))
-                    for shop_, flag_ in self._points:
-                        if best_route[Const.FROM_FIRST] == shop_:
-                            index_from = self._points.index((shop_, flag_))
-                            self._time_table[index_from][index_to] += Const.PENALTY_8_AM
+            # the second shop must start from 8am
+            # for shop, start_8am in self._points:
+            #     if best_route[Const.TO_SECOND] == shop and not start_8am:
+            #         need_calc = True
+            #         index_to = self._points.index((shop, start_8am))
+            #         for shop_, flag_ in self._points:
+            #             if best_route[Const.FROM_FIRST] == shop_:
+            #                 index_from = self._points.index((shop_, flag_))
+            #                 self._time_table[index_from][index_to] += Const.PENALTY_8_AM
         print(time, best_route)
