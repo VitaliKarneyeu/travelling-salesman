@@ -1,19 +1,18 @@
 # travelling-salesman
+Script for parsing Google Maps. Searches fastest way between several places with ant colony algorithm. Uses Selenium webDriver, Firefox. 
 
 working with virtual environments
-$ pip install virtualenv
+
+`$ python -m pip install virtualenv`
+
+`$ cd project_folder`
+
+`$ python -m virtualenv venv`
+
+`$ source venv/bin/activate`
+
+`$ python -m pip install -r requirements.txt --updrade`
 
 
-$ cd project_folder
-$ virtualenv venv
-
-$ source venv/bin/activate
-
-sudo dnf install python3-selenium
-
-$ pip install requests
-
-$ deactivate
-
-Geckodriver for Firefox download from:
+Geckodriver for Firefox can be downloaded from:
 https://github.com/mozilla/geckodriver/releases
