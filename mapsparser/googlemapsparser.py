@@ -33,7 +33,7 @@ class GoogleMapsParser(MapsParser):
 
         self._maps_page.click_travel_mode_transit_button()
 
-        time.sleep(3)
+        time.sleep(Const.DELAY_UI)
 
         self._maps_page.click_select_schedule_button()
         self._maps_page.click_depart_menu_item()
@@ -47,10 +47,6 @@ class GoogleMapsParser(MapsParser):
             # cant calc travel time by transit
             if self._maps_page.get_sorry_message():
                 self._maps_page.click_travel_mode_walking_button()
-                # self._maps_page.click_select_schedule_button()
-                # self._maps_page.click_depart_menu_item()
-                # select default time
-                # self._maps_page.set_default_time_to_field()
             else:
                 raise
 

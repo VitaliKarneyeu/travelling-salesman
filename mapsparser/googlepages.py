@@ -71,9 +71,10 @@ class MapsPage(Page):
     def click_depart_menu_item(self) -> None:
         self._depart_menu_item.click()
 
-    def get_shortest_trip_time(self) -> int:
+    @staticmethod
+    def get_shortest_trip_time() -> int:
         # reading data to list again and again, while all data not will
-        # be read successfully, because DOM can changed suddenly
+        # be read successfully, because DOM can change suddenly
         durations_list = []
         success = False
         while not success:

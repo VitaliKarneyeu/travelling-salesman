@@ -1,0 +1,43 @@
+[
+        {
+                "address": "метро Каменная Горка Минск",
+                "works_at_8am": true,
+                "description": "home"
+        },
+        {
+                "address": "мирошниченко 3 минск",
+                "works_at_8am": false,
+                "description": "виталюр с 9"
+        },
+        {
+                "address": "некрасова 3а минск",
+                "works_at_8am": false,
+                "description": "виталюр с 9"
+        },
+        {
+                "address": "логойский тракт 37 минск",
+                "works_at_8am": true,
+                "description": "наваколле c 8"
+        },
+        {
+                "address": "сурганова 50 минск",
+                "works_at_8am": true,
+                "description": "соседи с 8"
+        },
+        {
+                "address": "калиновского 67 минск",
+                "works_at_8am": true,
+                "description": "санта c 8"
+        },
+        {
+                "address": "калиновского 55 минск",
+                "works_at_8am": false,
+                "description": "виталюр c 9"
+        },
+        {
+                "address": "восточная 129 минск",
+                "works_at_8am": false,
+                "description": "виталюр c 9"
+        }
+]
+
