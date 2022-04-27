@@ -3,8 +3,7 @@ import time
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver import FirefoxOptions
-
+from selenium.webdriver.firefox.options import Options
 from .constants import Const
 from .mapsparser import MapsParser
 from .googlepages import MapsPage
@@ -12,10 +11,9 @@ from .googlepages import MapsPage
 
 class GoogleMapsParser(MapsParser):
     def __init__(self):
-        options = FirefoxOptions()
+        options = Options()
         options.add_argument(Const.FIREFOX_DEFAULT_WINDOW_SIZE)
-        self._driver = webdriver.Firefox(firefox_options=options,
-                                         executable_path=Const.EXECUTABLE_PATH)
+        self._driver = webdriver.Firefox(options=options)
         self._maps_page = MapsPage(self._driver)
 
     def prepare_maps_page(self) -> None:

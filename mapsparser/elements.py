@@ -3,7 +3,7 @@ from typing import List, Tuple, Callable, Union
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webdriver import WebElement
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
@@ -28,7 +28,8 @@ class Element:
 
     @property
     def _element(self) -> Union[WebElement, List[WebElement]]:
-        condition = self._default_condition(self._locator)
+        self.driver.implicitly_wait(self._timeout)
+        condition = Element._default_condition(self._locator)
         return WebDriverWait(self.driver, self._timeout).until(condition)
 
     def _send_keys(self, value: str) -> None:

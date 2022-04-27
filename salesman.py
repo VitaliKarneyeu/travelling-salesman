@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 import json
 from typing import List, Dict, Union
@@ -41,6 +42,9 @@ class Main:
 
 
 if __name__ == '__main__':
+    if Const.WEBDRIVER_EXECUTABLE_DIR not in os.environ["PATH"]:
+        os.environ["PATH"] += os.pathsep + Const.WEBDRIVER_EXECUTABLE_DIR
+
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',

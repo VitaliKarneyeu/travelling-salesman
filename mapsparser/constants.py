@@ -10,7 +10,7 @@ class Const:
                                        f"{Keys.DELETE}{Keys.DELETE}10:30 AM\n")
     DEFAULT_TRIP_TIME: int = 2500
     DESCRIPTION_KEY: str = "description"
-    EXECUTABLE_PATH: str = r'./mapsparser/drivers/geckodriver'
+    WEBDRIVER_EXECUTABLE_DIR: str = r'./mapsparser/drivers'
     FIREFOX_DEFAULT_WINDOW_SIZE: str = "--window-size=1024,768"
     MINUTES_ONLY_PARTS_NUM: int = 2
     MINUTES_PER_HOUR: int = 60
